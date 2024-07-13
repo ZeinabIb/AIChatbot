@@ -81,6 +81,7 @@ streamlit run front_end.py
 
 
 
+[streamlit-frontend-2024-07-13-23-07-86.webm](https://github.com/user-attachments/assets/b1ac0ec8-9002-4271-b504-4cc4738a86f0)
 
 
 
