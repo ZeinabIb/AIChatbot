@@ -12,15 +12,15 @@ This is a chatbot application built with FastAPI for the backend and Streamlit f
 ## Installation
 
 1. **Clone the repository:**
-   ```bash
+```bash
    git clone https://github.com/yourusername/fastapi-chatbot.git
    cd fastapi-chatbot
 Create and activate a virtual environment:
 
-   ```bash
+```bash
 python -m venv venv
 source venv/bin/activate  # On Windows use `venv\Scripts\activate`
-Install dependencies:
+Install dependencies:```
 
    ```bash
 pip install -r requirements.txt
@@ -63,11 +63,11 @@ GET /messages/{user_id}: Retrieve user messages
 Example Requests
 Obtain an access token:
 
-   ```bash
+```bash
 curl -X POST "http://127.0.0.1:8000/token" -H "accept: application/json" -d "username=test&password=test"
 Create a new user:
 
-   ```bash
+```bash
 curl -X POST "http://127.0.0.1:8000/users/" -H "Content-Type: application/json" -d '{"username": "test", "email": "test@example.com", "password": "test"}'
 Generate a chatbot response:
 
