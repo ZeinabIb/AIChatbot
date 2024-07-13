@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+sqlalchemy
+mysqlclient
+pydantic
+transformers
+passlib
+python-dotenv
+streamlit
