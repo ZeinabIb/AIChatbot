@@ -7,7 +7,7 @@ API_URL = "http://127.0.0.1:8000"
 
 st.title("Chatbot")
 
-user_id = 1  # Example user_id
+user_id = 1
 
 
 if "access_token" not in st.session_state:
@@ -24,22 +24,24 @@ if st.session_state.access_token:
             if response.status_code == 200:
                 messages = response.json()
                 for message in messages:
-                    if message['message_type'] == 0:
+                    if message["message_type"] == 0:
                         st.markdown(
                             f'<div style="background-color: #ddd; padding: 10px; border-radius: 10px; margin: 5px 0;">'
                             f'<span style="color: black;">You:</span> {message["message_content"]}'
-                            '</div>',
-                            unsafe_allow_html=True
+                            "</div>",
+                            unsafe_allow_html=True,
                         )
-                    elif message['message_type'] == 1:
+                    elif message["message_type"] == 1:
                         st.markdown(
                             f'<div style="background-color: #007bff; color: white; padding: 10px; border-radius: 10px; margin: 5px 0;">'
                             f'<span style="color: white;">Chatbot:</span> {message["message_content"]}'
-                            '</div>',
-                            unsafe_allow_html=True
+                            "</div>",
+                            unsafe_allow_html=True,
                         )
             else:
-                st.error(f"Failed to fetch messages. Status code: {response.status_code}")
+                st.error(
+                    f"Failed to fetch messages. Status code: {response.status_code}"
+                )
         except requests.exceptions.RequestException as e:
             st.error(f"Error fetching messages: {e}")
 
@@ -58,7 +60,9 @@ if st.session_state.access_token:
         # Log the request payload
         st.write("Request Payload:", json.dumps(request_payload, indent=2))
 
-        response = requests.post(f"{API_URL}/generate/", json=request_payload, headers=headers)
+        response = requests.post(
+            f"{API_URL}/generate/", json=request_payload, headers=headers
+        )
 
         try:
             response_data = response.json()
@@ -67,30 +71,33 @@ if st.session_state.access_token:
 
             st.session_state.history.append(response_data["response"])
 
-            # Update frontend with new message
+            # new message
             if len(st.session_state.history) % 2 == 1:
                 st.markdown(
                     f'<div style="background-color: #ddd; padding: 10px; border-radius: 10px; margin: 5px 0;">'
                     f'<span style="color: black;">You:</span> {st.session_state.history[-2]}'
-                    '</div>',
-                    unsafe_allow_html=True
+                    "</div>",
+                    unsafe_allow_html=True,
                 )
                 st.markdown(
                     f'<div style="background-color: #007bff; color: white; padding: 10px; border-radius: 10px; margin: 5px 0;">'
                     f'<span style="color: white;">Chatbot:</span> {st.session_state.history[-1]}'
-                    '</div>',
-                    unsafe_allow_html=True
+                    "</div>",
+                    unsafe_allow_html=True,
                 )
             else:
                 st.markdown(
                     f'<div style="background-color: #007bff; color: white; padding: 10px; border-radius: 10px; margin: 5px 0;">'
                     f'<span style="color: white;">Chatbot:</span> {st.session_state.history[-1]}'
-                    '</div>',
-                    unsafe_allow_html=True
+                    "</div>",
+                    unsafe_allow_html=True,
                 )
 
         except json.JSONDecodeError:
-            st.error("Failed to decode JSON response from server. Status code:", response.status_code)
+            st.error(
+                "Failed to decode JSON response from server. Status code:",
+                response.status_code,
+            )
 
 else:
     st.subheader("Login")
@@ -99,7 +106,6 @@ else:
     if st.button("Login"):
         login_payload = {"username": username, "password": password}
 
-        # Log the login request payload
         st.write("Login Request Payload:", json.dumps(login_payload, indent=2))
 
         response = requests.post(f"{API_URL}/token", data=login_payload)
@@ -110,6 +116,9 @@ else:
                 st.session_state.access_token = response_data["access_token"]
                 st.experimental_rerun()
             except json.JSONDecodeError:
-                st.error("Failed to decode JSON response from server. Status code:", response.status_code)
+                st.error(
+                    "Failed to decode JSON response from server. Status code:",
+                    response.status_code,
+                )
         else:
             st.error("Invalid username or password")
