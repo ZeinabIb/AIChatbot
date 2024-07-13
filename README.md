@@ -79,11 +79,7 @@ streamlit run front_end.py
 - GET /messages/{user_id}: Retrieve user messages
 
 
-> [!IMPORTANT]
-> Replace yourusername in the git clone URL with your actual GitHub username.
-Ensure the .env file is properly listed in .gitignore to keep sensitive information secure.
-The Streamlit application (front_end.py) should be in the root directory or properly referenced if it's located elsewhere.
-Add any other relevant environment variables and configurations that your project requires.
+
 
 
 
